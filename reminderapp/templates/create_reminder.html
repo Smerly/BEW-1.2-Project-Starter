@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% block content %}
+
+<form method="POST" action="{{ url_for('main.create_reminder') }}">
+	{{ form.csrf_token }}
+	<fieldset>
+		<legend>Make a new reminder</legend>
+		{{ form.name.label}} {{ form.name }}
+		<!--  -->
+		{% for error in form.name.errors %}
+		<li class="error">{{ error }}</li>
+		{% endfor %}
+		<!--  -->
+		{{ form.soft_deadline.label}} {{
+		form.soft_deadline(placeholder="YYYY-mm-dd")}}
+		<!--  -->
+		{% for error in form.soft_deadline.errors %}
+		<li class="error">{{ error }}</li>
+		{% endfor %}
+		<!--  -->
+		{{ form.hard_deadline.label}} {{
+		form.hard_deadline(placeholder="YYYY-mm-dd")}}
+		<!--  -->
+		{% for error in form.hard_deadline.errors %}
+		<li class="error">{{ error }}</li>
+		{% endfor %}
+		<!--  -->
+		{{ form.final_deadline.label}} {{
+		form.final_deadline(placeholder="YYYY-mm-dd")}}
+		<!--  -->
+		{% for error in form.final_deadline.errors %}
+		<li class="error">{{ error }}</li>
+		{% endfor %}
+		<!--  -->
+		<div style="width: 200px">
+			{{ form.categories.label}} {{ form.categories }}
+		</div>
+		<!--  -->
+
+		{% for error in form.categories.errors %}
+
+		<li class="error">{{ error }}</li>
+		{% endfor %}
+		<!--  -->
+
+		{{ form.submit }}
+	</fieldset>
+</form>
+
+{% endblock %}

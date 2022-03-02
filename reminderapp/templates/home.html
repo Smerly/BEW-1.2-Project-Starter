@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block content %}
+
+<h2></h2>
+
+<ul>
+	{% for each in all_reminders %}
+	<li>{{ each.name }}</li>
+	<li>Soft Deadline: {{ each.soft_deadline }}</li>
+	<li>Hard Deadline: {{ each.hard_deadline }}</li>
+	<li>Urgent Deadline: {{ each.final_deadline }}</li>
+
+	<li>Categories: {{ each.categories }}</li>
+	{% endfor %}
+</ul>
+
+<h2>Users</h2>
+
+<ul>
+	{% for user in all_users %}
+	<li><a href="/profile/{{ user.username }}">{{ user.username }}</a></li>
+	{% endfor %}
+</ul>
+
+{% endblock %}

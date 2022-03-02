@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block content %}
+
+<form method="POST" action="{{ url_for('main.create_category') }}">
+	{{ form.csrf_token }}
+	<fieldset>
+		<legend>Make a new category of reminder</legend>
+
+		{{ form.name_of_category.label}} {{ form.name_of_category}} {{ form.submit
+		}}
+	</fieldset>
+</form>
+
+{% endblock %}
