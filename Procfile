@@ -1,1 +1,1 @@
-web: gunicorn -w 1 reminderapp:app --preload
+web: gunicorn -w 1 app --preload
