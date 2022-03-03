@@ -39,6 +39,7 @@ packaging==20.4
 Pillow==8.1.0
 pluggy==0.13.1
 prompt-toolkit==3.0.28
+psycopg2==2.7.7
 py==1.9.0
 pycodestyle==2.6.0
 pycparser==2.20
