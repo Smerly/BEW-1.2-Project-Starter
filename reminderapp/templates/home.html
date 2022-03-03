@@ -10,6 +10,11 @@
 	<li>Urgent Deadline: {{ each.final_deadline }}</li>
 
 	<li>Categories: {{ each.categories }}</li>
+	Status: {{ each.status }}
+	<form action="/fulfill_reminder/{{each.id}}" method="POST">
+		<button>Fulfill</button>
+	</form>
+
 	{% endfor %}
 </ul>
 

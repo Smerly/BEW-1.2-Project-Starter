@@ -33,6 +33,7 @@ def create_reminder():
         flash('Created new reminder.')
         return redirect(url_for('main.homepage', reminder_id=new_reminder.id))
     return render_template('create_reminder.html', form=form)
+    
 
 @main.route('/create_category', methods=['GET', 'POST'])
 @login_required
@@ -51,6 +52,14 @@ def create_category():
 # name = db.Column(db.String(80), nullable=False)
 
 # users = db.relationship('User', back_populates='current_reminders')
+
+@main.route('/fulfill_reminder/<reminder_id>', methods=['POST'])
+def fulfull(reminder_id):
+    reminder = Reminder.query.get(reminder_id)
+    db.session.delete(reminder)
+    db.session.commit()
+    flash('Reminder has been fulfilled')
+    return redirect(url_for('main.homepage'))
 
 @main.route('/profile/<username>')
 def profile(username):
