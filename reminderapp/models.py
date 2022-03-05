@@ -4,15 +4,20 @@ from sqlalchemy.orm import backref
 from flask_login import UserMixin
 import enum
 
-category_reminder_table = db.Table('category_reminder', 
-    db.Column('category_id', db.Integer, db.ForeignKey('category.id')), 
-    db.Column('reminder_id', db.Integer, db.ForeignKey('reminder.id'))
-)
+category_reminder_table = db.Table('category_reminder',
+                                   db.Column('category_id', db.Integer,
+                                             db.ForeignKey('category.id')),
+                                   db.Column('reminder_id', db.Integer,
+                                             db.ForeignKey('reminder.id'))
+                                   )
 
 user_reminder_table = db.Table('user_reminder',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('reminder_id', db.Integer, db.ForeignKey('reminder.id'))
-)
+                               db.Column('user_id', db.Integer,
+                                         db.ForeignKey('user.id')),
+                               db.Column('reminder_id', db.Integer,
+                                         db.ForeignKey('reminder.id'))
+                               )
+
 
 class Reminder(db.Model):
 
@@ -35,7 +40,7 @@ class Reminder(db.Model):
     categories = db.relationship(
         'Category', secondary=category_reminder_table, back_populates='reminders')
 
-    users = db.relationship('User', secondary=user_reminder_table, back_populates='current_reminders')
+    # users = db.relationship('User', secondary=user_reminder_table, back_populates='current_reminders')
     status = db.Column(db.Boolean, default=False, nullable=False)
 
     def __str__(self):
@@ -56,7 +61,8 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), nullable=False, unique=True)
     password = db.Column(db.String(200), nullable=False)
-    current_reminders = db.relationship('Reminder', secondary=user_reminder_table, back_populates='users')
+    current_reminders = db.relationship(
+        'Reminder', secondary=user_reminder_table, back_populates='users')
     # friend_list = db.relationship('FriendList', backref='friends')
 
     def __repr__(self):
@@ -74,6 +80,3 @@ class User(UserMixin, db.Model):
 
 #     def __repr__(self):
 #         return f'<FriendList: {self.owner_id}>'
-
-
-

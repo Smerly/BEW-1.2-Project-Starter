@@ -68,11 +68,74 @@ class MainTests(unittest.TestCase):
         db.create_all()
 
     def test_homepage_logged_out(self):
-        create_reminders()
+        response = self.app.get('/', follows_redirects=True)
+        response_text = response.get_data(as_text=True)
+
+        self.assertIn(
+            '<a class="customlink nav-item" href="/login">Log In</a>', response_text)
+        self.assertNotIn('Log Out', response_text)
+
+    def test_homepage_logged_in(self):
         create_user()
+        login(self.app, 'asd', 'asd')
+        response = self.app.get('/', follows_redirects=True)
+        response_text = response.get_data(as_text=True)
+
+        self.assertNotIn(
+            '<a class="customlink nav-item" href="/login">Log In</a>', response_text)
+        self.assertIn('Log Out', response_text)
+
+    def test_create_reminder_logged_out(self):
+        response = self.app.get('/', follows_redirects=True)
+        response_text = response.get_data(as_text=True)
+
+        self.assertNotIn('Create A Reminder', response_text)
+
+    def test_create_reminder_logged_in(self):
+        create_user()
+        create_reminders()
+        login(self.app, 'asd', 'asd')
+        new_reminder = {
+            'name': 'new',
+            'soft_deadline': '2022-03-04',
+            'hard_deadline': '2022-03-04',
+            'final_deadline': '2022-03-04'
+        }
+        self.app.post('/create_reminder', data=new_reminder)
+
+        created_reminder = Reminder.query.filter_by(name='new').one()
+        self.assertEqual(created_reminder.soft_deadline, '2022-03-04')
+
+    def test_see_reminders_logged_in(self):
+        create_user()
+        create_reminders()
+        login(self.app, 'asd', 'asd')
+        new_reminder = {
+            'name': 'new',
+            'soft_deadline': '2022-03-04',
+            'hard_deadline': '2022-03-04',
+            'final_deadline': '2022-03-04'
+        }
+        self.app.post('/create_reminder', data=new_reminder)
 
         response = self.app.get('/', follows_redirects=True)
         response_text = response.get_data(as_text=True)
 
-        self.assertIn('')
-        self.assertNotIn('')
+        self.assertIn('2022-03-04', response_text)
+
+    def test_see_reminders_logged_out(self):
+        create_user()
+        create_reminders()
+
+        new_reminder = {
+            'name': 'new',
+            'soft_deadline': '2022-03-04',
+            'hard_deadline': '2022-03-04',
+            'final_deadline': '2022-03-04'
+        }
+        self.app.post('/create_reminder', data=new_reminder)
+
+        response = self.app.get('/', follows_redirects=True)
+        response_text = response.get_data(as_text=True)
+
+        self.assertNotIn('2022-03-04', response_text)
