@@ -47,7 +47,7 @@ pycodestyle==2.6.0
 pycparser==2.20
 pylint==2.6.0
 pymongo==3.11.0
-pyobjc==8.3
+# pyobjc==8.3
 # pyobjc-core==8.3
 # pyobjc-framework-Accessibility==8.3
 # pyobjc-framework-Accounts==8.3
