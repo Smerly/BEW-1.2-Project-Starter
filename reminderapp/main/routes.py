@@ -1,19 +1,25 @@
+from AppKit import NSSound
+import datetime
+from reminderapp.extensions import db
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
-from datetime import date, datetime
 from reminderapp.main.forms import ReminderForm, FriendForm, CategoryForm
 from reminderapp.models import User, Reminder, Category
+from reminderapp.main.tasks import send_sms_reminder
 main = Blueprint('main', __name__)
 
-from reminderapp.extensions import db
+# Tasks
+
 
 # Create your routes here.
+
 
 @main.route('/')
 def homepage():
     all_reminders = Reminder.query.all()
     all_users = User.query.all()
     return render_template('home.html', all_reminders=all_reminders, all_users=all_users)
+
 
 @main.route('/create_reminder', methods=['GET', 'POST'])
 @login_required
@@ -29,11 +35,13 @@ def create_reminder():
         )
         db.session.add(new_reminder)
         db.session.commit()
-
+        reminder_text = 'Its time'
+        print('executing task')
+        send_sms_reminder.apply_async(('5108133250', reminder_text), eta=datetime.datetime.now())
         flash('Created new reminder.')
         return redirect(url_for('main.homepage', reminder_id=new_reminder.id))
     return render_template('create_reminder.html', form=form)
-    
+
 
 @main.route('/create_category', methods=['GET', 'POST'])
 @login_required
@@ -53,6 +61,7 @@ def create_category():
 
 # users = db.relationship('User', back_populates='current_reminders')
 
+
 @main.route('/fulfill_reminder/<reminder_id>', methods=['POST'])
 def fulfull(reminder_id):
     reminder = Reminder.query.get(reminder_id)
@@ -61,8 +70,22 @@ def fulfull(reminder_id):
     flash('Reminder has been fulfilled')
     return redirect(url_for('main.homepage'))
 
+
+@main.route('/alert_user/<reminder_id>', methods=['POST'])
+def alert_user(reminder_id):
+    reminder = Reminder.query.get(reminder_id)
+    datetime_object = str(datetime.date.today())
+    now = datetime_object[:10]
+    # playsound(alarm.mp3)
+    # Put tasks executes here
+    reminder_text = 'Its time'
+    reminder.status = True
+    db.session.commit()
+    flash('Reminder status changed')
+    return redirect(url_for('main.homepage'))
+
+
 @main.route('/profile/<username>')
 def profile(username):
     user = User.query.filter_by(username=username).one()
     return render_template('profile.html', user=user)
-
