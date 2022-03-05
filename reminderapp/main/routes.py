@@ -17,7 +17,8 @@ main = Blueprint('main', __name__)
 def homepage():
     all_reminders = Reminder.query.all()
     all_users = User.query.all()
-    return render_template('home.html', all_reminders=all_reminders, all_users=all_users)
+    all_categories = Category.query.all()
+    return render_template('home.html', all_reminders=all_reminders, all_users=all_users, all_categories=all_categories)
 
 
 @main.route('/create_reminder', methods=['GET', 'POST'])

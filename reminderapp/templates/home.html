@@ -5,6 +5,7 @@
 		style="flex-direction: column; align-items: center"
 	>
 		<h2>All Reminders</h2>
+
 		<div class="card-area">
 			{% for each in all_reminders %}
 			<div class="custom-card card">
@@ -13,6 +14,11 @@
 				<!-- <li>Hard Deadline: {{ each.hard_deadline }}</li>
 				<li>Urgent Deadline: {{ each.final_deadline }}</li>
 				<li>Categories: {{ each.categories }}</li> -->
+
+				<header>
+					Categories: {% for everycat in each.categories %} {{everycat}} {%
+					endfor %}
+				</header>
 				<form
 					action="/fulfill_reminder/{{each.id}}"
 					method="POST"

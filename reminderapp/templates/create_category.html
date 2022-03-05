@@ -6,8 +6,10 @@
 			<fieldset class="form-create">
 				<legend>Make a new category of reminder</legend>
 
-				{{ form.name_of_category.label}} {{ form.name_of_category}} {{
-				form.submit }}
+				{{ form.name_of_category.label}} {{ form.name_of_category}} {% for error
+				in form.name_of_category.errors %}
+				<li class="error">{{ error }}</li>
+				{% endfor %} {{ form.submit }}
 			</fieldset>
 		</form>
 	</ul>
