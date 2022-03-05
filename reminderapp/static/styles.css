@@ -32,6 +32,11 @@
 	margin: 10px;
 }
 
+.form-create {
+	display: flex;
+	flex-direction: column;
+}
+
 p#message {
 	color: white;
 	font-size: 20px;
