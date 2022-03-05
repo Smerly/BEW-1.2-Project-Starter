@@ -4,7 +4,7 @@ from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from reminderapp.main.forms import ReminderForm, FriendForm, CategoryForm
 from reminderapp.models import User, Reminder, Category
-from reminderapp.main.tasks import send_sms_reminder
+# from reminderapp.main.tasks import send_sms_reminder
 main = Blueprint('main', __name__)
 
 # Tasks
@@ -37,8 +37,8 @@ def create_reminder():
         db.session.commit()
         reminder_text = 'Its time'
         print('executing task')
-        send_sms_reminder.apply_async(
-            ('5108133250', reminder_text), eta=datetime.datetime.now())
+        # send_sms_reminder.apply_async(
+        #     ('5108133250', reminder_text), eta=datetime.datetime.now())
         flash('Created new reminder.')
         return redirect(url_for('main.homepage', reminder_id=new_reminder.id))
     return render_template('create_reminder.html', form=form)
