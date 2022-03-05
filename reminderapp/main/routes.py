@@ -30,7 +30,7 @@ def create_reminder():
             soft_deadline=form.soft_deadline.data,
             hard_deadline=form.hard_deadline.data,
             final_deadline=form.final_deadline.data,
-            categories=form.categories.data
+            categories=form.categories.data,
         )
         db.session.add(new_reminder)
         db.session.commit()
@@ -71,18 +71,16 @@ def fulfull(reminder_id):
     return redirect(url_for('main.homepage'))
 
 
-@main.route('/alert_user/<reminder_id>', methods=['POST'])
-def alert_user(reminder_id):
-    reminder = Reminder.query.get(reminder_id)
-    datetime_object = str(datetime.date.today())
-    now = datetime_object[:10]
-    # playsound(alarm.mp3)
-    # Put tasks executes here
-    reminder_text = 'Its time'
-    reminder.status = True
-    db.session.commit()
-    flash('Reminder status changed')
-    return redirect(url_for('main.homepage'))
+# @main.route('/alert_user/<reminder_id>', methods=['POST'])
+# def alert_user(reminder_id):
+#     reminder = Reminder.query.get(reminder_id)
+#     datetime_object = str(datetime.date.today())
+#     now = datetime_object[:10]
+#     reminder_text = 'Its time'
+#     reminder.status = True
+#     db.session.commit()
+#     flash('Reminder status changed')
+#     return redirect(url_for('main.homepage'))
 
 
 @main.route('/profile/<username>')

@@ -40,7 +40,9 @@ class Reminder(db.Model):
     categories = db.relationship(
         'Category', secondary=category_reminder_table, back_populates='reminders')
 
-    # users = db.relationship('User', secondary=user_reminder_table, back_populates='current_reminders')
+    users = db.relationship(
+        'User', secondary=user_reminder_table, back_populates='current_reminders')
+    # user = db.Column(db.String(80), nullable=False)
     status = db.Column(db.Boolean, default=False, nullable=False)
 
     def __str__(self):
