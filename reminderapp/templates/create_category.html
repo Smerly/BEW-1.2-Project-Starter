@@ -1,13 +1,16 @@
 {% extends 'base.html' %} {% block content %}
+<div class="complete-outer">
+	<ul class="card-area container">
+		<form method="POST" action="{{ url_for('main.create_category') }}">
+			{{ form.csrf_token }}
+			<fieldset class="form-create">
+				<legend>Make a new category of reminder</legend>
 
-<form method="POST" action="{{ url_for('main.create_category') }}">
-	{{ form.csrf_token }}
-	<fieldset>
-		<legend>Make a new category of reminder</legend>
-
-		{{ form.name_of_category.label}} {{ form.name_of_category}} {{ form.submit
-		}}
-	</fieldset>
-</form>
+				{{ form.name_of_category.label}} {{ form.name_of_category}} {{
+				form.submit }}
+			</fieldset>
+		</form>
+	</ul>
+</div>
 
 {% endblock %}

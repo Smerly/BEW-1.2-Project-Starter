@@ -22,7 +22,7 @@ class ReminderForm(FlaskForm):
     #     DataRequired()])
 
     soft_deadline = DateField('Soft Reminder')
-    hard_deadline = DateField('Hoft Reminder')
+    hard_deadline = DateField('Hard Reminder')
     final_deadline = DateField('Final Reminder')
     categories = QuerySelectMultipleField('Categories',
                                           query_factory=lambda: Category.query)

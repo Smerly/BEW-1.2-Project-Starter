@@ -19,24 +19,24 @@
 				{% for error in form.soft_deadline.errors %}
 				<li class="error">{{ error }}</li>
 				{% endfor %}
-				<!--  -->
-				<!-- <div class="horizontal">
+				<!-- -->
+				<div class="horizontal">
 					{{ form.hard_deadline.label}} {{
 					form.hard_deadline(placeholder="YYYY-mm-dd")}}
-				</div> -->
+				</div>
 				<!--  -->
-				<!-- {% for error in form.hard_deadline.errors %}
+				{% for error in form.hard_deadline.errors %}
 				<li class="error">{{ error }}</li>
-				{% endfor %} -->
+				{% endfor %}
 				<!--  -->
-				<!-- <div class="horizontal">
+				<div class="horizontal">
 					{{ form.final_deadline.label}} {{
 					form.final_deadline(placeholder="YYYY-mm-dd")}}
-				</div> -->
+				</div>
 				<!--  -->
-				<!-- {% for error in form.final_deadline.errors %}
+				{% for error in form.final_deadline.errors %}
 				<li class="error">{{ error }}</li>
-				{% endfor %} -->
+				{% endfor %}
 				<!--  -->
 				<div style="width: 200px; display: flex; flex-direction: column">
 					{{ form.categories.label}} {{ form.categories }}
