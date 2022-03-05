@@ -1,12 +1,13 @@
 {% extends 'base.html' %} {% block content %}
 <div class="complete-outer">
 	<ul class="card-area container">
+		<h2>All Reminders</h2>
 		{% for each in all_reminders %}
 		<div class="custom-card card">
 			<li>{{ each.name }}</li>
 			<li>Deadline: {{ each.soft_deadline }}</li>
-			<!-- <li>Hard Deadline: {{ each.hard_deadline }}</li>
-			<li>Urgent Deadline: {{ each.final_deadline }}</li> -->
+			<li>Hard Deadline: {{ each.hard_deadline }}</li>
+			<li>Urgent Deadline: {{ each.final_deadline }}</li>
 			<li>Categories: {{ each.categories }}</li>
 
 			<form
